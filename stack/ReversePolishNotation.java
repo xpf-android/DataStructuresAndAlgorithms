@@ -24,7 +24,7 @@ import java.util.Stack;
 public class ReversePolishNotation {
     public static void main(String[] args) {
         //先定义逆波兰表达式
-        //(30+4)*5-6  => 3 4 + 5 * 6 -
+        //(30+4)*5-6  => 30 4 + 5 * 6 -
         //4 * 5 -8 + 60 + 8 / 2 => 4 5 * 8 - 60 + 8 2 / +
         //说明为了方便，逆波兰表达式的数字和符号使用空格隔开
 //        String suffixExpression = "30 4 + 5 * 6 -";
