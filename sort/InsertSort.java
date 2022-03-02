@@ -1,23 +1,40 @@
 package sort;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * 插入排序
  */
 public class InsertSort {
     public static void main(String[] args) {
-        int[] arr = {101,34,119,1};
+        /*int[] arr = {101,34,119,1};
         System.out.println("排序前：");
         System.out.println(Arrays.toString(arr));
-        insertSort1(arr);
+        insertSort(arr);*/
+
+        //时间测试
+        //创建容量为80000的随机数组
+        int[] arr = new int[80000];
+        for (int i = 0; i < 80000; i++) {
+            arr[i] = (int)(Math.random()*80000);//生成一个[0,80000]的数
+        }
+        Date date1 = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString1 = simpleDateFormat.format(date1);
+        System.out.println("排序前的时间为：" + dateString1);
+        insertSort(arr);
+        Date date2 = new Date();
+        String dateString2 = simpleDateFormat.format(date2);
+        System.out.println("排序后的时间为：" + dateString2);
 
     }
 
 
 
     //插入排序
-    public static void insertSort1(int[] arr) {
+    public static void insertSort(int[] arr) {
         /*//使用逐步推导的方式，找规律
 
         //第1轮 给arr[1]找插入的位置
@@ -93,9 +110,12 @@ public class InsertSort {
                 insertIndex--;
             }
             //当退出while循环，说明插入的位置找到，insertIndex + 1
-            arr[insertIndex + 1] = insertVal;
-            System.out.printf("第%d轮排序后：\n", i);
-            System.out.println(Arrays.toString(arr));
+            //如果没有进入while循环，即本身有序，无需执行下面操作
+            if (insertIndex + 1 != i) {
+                arr[insertIndex + 1] = insertVal;
+            }
+            /*System.out.printf("第%d轮排序后：\n", i);
+            System.out.println(Arrays.toString(arr));*/
         }
 
 
