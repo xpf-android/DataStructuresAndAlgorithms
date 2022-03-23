@@ -22,7 +22,7 @@ public class BinaryTreeDemo {
         node3.setLeft(node5);
         binaryTree.setRoot(root);
 
-        //测试前序遍历
+        /*//测试前序遍历
         System.out.println("前序遍历");
         binaryTree.preOrderTraverse();
 
@@ -60,8 +60,14 @@ public class BinaryTreeDemo {
             System.out.printf("找到了，信息为 no=%d name= %s\n", resNode3.getNo(), resNode3.getName());
         } else {
             System.out.printf("没有找到 no = %d 的英雄(节点)\n", 5);
-        }
+        }*/
 
+        //测试删除节点
+        System.out.println("删除前，前序遍历...");
+        binaryTree.preOrderTraverse();
+        binaryTree.delNode(5);
+        System.out.println("删除后，前序遍历...");
+        binaryTree.preOrderTraverse();
     }
 }
 
@@ -126,6 +132,25 @@ class BinaryTree{
             return null;
         }
     }
+
+    //删除节点
+    public void delNode(int no) {
+        if (root != null) {
+            //如果只有一个root节点，立即判断root是不是就是要删除的节点
+            if (root.getNo() == no) {
+                root = null;
+            } else {
+                //递归删除
+                root.delNode(no);
+            }
+        } else {
+            System.out.println("空树，不能删除...");
+        }
+    }
+
+
+
+
 
 
 }
@@ -327,5 +352,39 @@ class HeroNode {
             return this;
         }
         return resNode;
+    }
+
+    //递归删除节点
+    //1.如果要删除的节点是叶子节点，则删除该节点
+    //2.如果要删除的节点是非叶子节点，则删除孩子树
+    public void delNode(int no) {
+        //思路：
+        //因为二叉树是单向的，所以是判断当前节点的子结点是否为需要删除的节点，而不能去判断当前节点是否为要删除节点
+        //1.如果当前节点的左子节点不为空，并且左子节点就是要删除的节点，就将this.left = null,并且就返回(结束递归删除)
+        //2.如果当前节点的右子节点不为空，并且右子节点就是要删除的节点，就将this.right = null,并且就返回(结束递归删除)
+        //3.如果前面第1和2两步没有删除节点，那么就要向左子树进行递归删除
+        //4.如果第3步也没有删除节点，则应当向右子树进行递归删除
+
+        //1.如果当前节点的左子节点不为空，并且左子节点就是要删除的节点，就将this.left = null,并且就返回(结束递归删除)
+        if (this.left != null && this.left.no == no) {
+            this.left = null;
+            return;
+        }
+
+        //2.如果当前节点的右子节点不为空，并且右子节点就是要删除的节点，就将this.right = null,并且就返回(结束递归删除)
+        if (this.right != null && this.right.no == no) {
+            this.right = null;
+            return;
+        }
+
+        //3.向左子树进行递归删除
+        if (this.left != null) {
+            this.left.delNode(no);
+        }
+
+        //4.向右子树进行递归删除
+        if (this.right != null) {
+            this.right.delNode(no);
+        }
     }
 }
