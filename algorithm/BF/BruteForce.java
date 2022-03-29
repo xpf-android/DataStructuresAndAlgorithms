@@ -1,21 +1,26 @@
 package algorithm;
 
+import java.util.Arrays;
+
 /**
  * 暴力匹配
  */
 public class BruteForce {
     public static void main(String[] args) {
         //测试暴力匹配算法
-        String str1 = "硅硅谷 尚硅谷你尚硅 尚硅谷你尚硅谷你尚硅你好";
-        String str2 = "尚硅谷你尚硅你";
+//        String str1 = "硅硅谷 尚硅谷你尚硅 尚硅谷你尚硅谷你尚硅你好";
+//        String str2 = "尚硅谷你尚硅你";
 
-//        String str1 = "aababb";
-//        String str2 = "ab";
+        String str1 = "aababb";
+        String str2 = "ab";
         int index = violenceMatch(str1, str2);
         System.out.println("index=" + index);
 
+        int[] indexArray = bf2(str1.toCharArray(), str1.length(), str2.toCharArray(), str2.length());
+        System.out.println("indexArray=" + Arrays.toString(indexArray));
     }
     //暴力匹配算法实现
+    //返回第一个匹配的起始下标位置
     public static int violenceMatch(String str1, String str2) {
         char[] s1 = str1.toCharArray();
         char[] s2 = str2.toCharArray();
@@ -42,5 +47,52 @@ public class BruteForce {
         } else {
             return -1;
         }
+    }
+
+
+
+    /**
+     * 返回第一个匹配的起始下标位置
+     * @param a 主字符数组
+     * @param n 主字符数组长度
+     * @param b 模式字符数组
+     * @param m 模式字符数组长度
+     * @return
+     */
+    private static int bf(char a[], int n, char b[], int m) {
+        if (n - m < 0) return -1;
+        for (int i = 0; i < n - m; i++) {
+            int j = 0;
+            while (j < m) {
+                if (a[i + j] != b[j]) {
+                    break;
+                }
+                j++;
+            }
+            if (j == m) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //返回所有匹配的起始下标
+    private static int[] bf2(char mainStr[], int n, char subStr[], int m) {
+        int matchedPos[] = new int[n];
+        int matchedNum = 0;
+        for (int i = 0; i < n - m; i++) {
+            int j = 0;
+            while (j < m) {
+                if (mainStr[i + j] != subStr[j]) {
+                    break;
+                }
+                j++;
+            }
+            if (j == m) {
+                matchedPos[matchedNum] = i;
+                matchedNum++;
+            }
+        }
+        return matchedPos;
     }
 }
