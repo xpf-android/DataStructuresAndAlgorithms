@@ -2,6 +2,9 @@ package algorithm;
 
 import java.util.Arrays;
 
+/**
+ * prim算法解决修路问题
+ */
 public class PrimAlgorithm {
     public static void main(String[] args) {
         //测试图是否创建成功
@@ -26,7 +29,7 @@ public class PrimAlgorithm {
         //输出
         minTree.showGraph(graph);
 
-        minTree.prim(graph,0);
+        minTree.prim(graph,1);
 
     }
 }
